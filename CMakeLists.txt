@@ -10,7 +10,7 @@ project(build-on-macos VERSION 0.1
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-set(CMAKE_BUILD_TYPE=Release)
+#set(CMAKE_BUILD_TYPE=Release)
 
 add_executable(build-macos
         main.cpp
