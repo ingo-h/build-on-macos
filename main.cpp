@@ -7,8 +7,8 @@
 
 int main() {
 
-    std::string myString{"hello world"};
 #if false
+    std::string myString{"hello world"};
     // Using iterator on string is valid since C++11
     std::string::iterator str_it{myString.begin() + 5};
     std::cout << std::string(myString.begin(), str_it)
