@@ -8,13 +8,13 @@
 int main() {
 
     std::string myString{"hello world"};
+#if false
     // Using iterator on string is valid since C++11
     std::string::iterator str_it{myString.begin() + 5};
     std::cout << std::string(myString.begin(), str_it)
               << " from string"
               << std::endl; // output "hello from string"
 
-#if false
     std::string_view myStringView(myString);
     // Using iterator on string_view is valid since C++20
     std::string_view::iterator str_view_it{myStringView.begin() + 5};
