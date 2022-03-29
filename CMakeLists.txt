@@ -1,5 +1,5 @@
 # Copyright (C) 2021 GPL 3 and higher by Ingo Höft,  <Ingo@Hoeft-online.de>
-# Redistribution only with this Copyright remark. Last modified: 2022-03-25
+# Redistribution only with this Copyright remark. Last modified: 2022-03-29
 
 cmake_minimum_required(VERSION 3.18)
 project(build-on-macos VERSION 0.1
@@ -7,11 +7,19 @@ project(build-on-macos VERSION 0.1
                 HOMEPAGE_URL "https://github.com/ingo-h/build-on-macos.git")
 
 # specify the C++ standard
-set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-#set(CMAKE_BUILD_TYPE=Release)
+set(CMAKE_BUILD_TYPE=Release)
+
+add_compile_definitions(
+    PRIVATE $<IF:$<CONFIG:Debug>,DEBUG,NDEBUG>
+)
 
 add_executable(build-macos
-        main.cpp
+    upnplib_gtest_tools_unix.cpp
+    main.cpp
+)
+target_include_directories(build-macos
+    PRIVATE include
 )

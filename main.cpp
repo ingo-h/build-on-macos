@@ -1,28 +1,30 @@
 // Copyright (C) 2017 GPL 3 and higher by Ingo Höft,  <Ingo@Hoeft-online.de>
 // Redistribution only with this Copyright remark. Last modified: 2022-01-25
 
-//#include <string>
-//#include <string_view>
+#include <arpa/inet.h>
 #include <iostream>
 
+#include "upnplib_gtest_tools_unix.hpp"
+
 int main() {
+    upnplib::CIfaddr4Container ifaddr4Container;
 
-    std::cout << "working" << std::endl;
+    if (!ifaddr4Container.add("lo")) {
+        std::cout << "Error: ifaddr4Container.add()\n";
+        return 1;
+    }
 
-#if false
-    std::string myString{"hello world"};
-    // Using iterator on string is valid since C++11
-    std::string::iterator str_it{myString.begin() + 5};
-    std::cout << std::string(myString.begin(), str_it)
-              << " from string"
-              << std::endl; // output "hello from string"
+    ifaddrs* ifaddr = ifaddr4Container.get_ifaddr(1);
+    ifaddr = ifaddr4Container.get_ifaddr(1);
+    std::cout << "DEBUG: on main: ifaddr = " << ifaddr << "\n";
 
-    std::string_view myStringView(myString);
-    // Using iterator on string_view is valid since C++20
-    std::string_view::iterator str_view_it{myStringView.begin() + 5};
-    std::cout << std::string_view(myStringView.begin(), str_view_it)
-              << " from string_view"
-              << std::endl; // output "hello from string_view"
-#endif
+    sockaddr_in* ifa_addr_in = (sockaddr_in*)ifaddr->ifa_addr;
+    char addr4buf[INET_ADDRSTRLEN]{};
+    inet_ntop(AF_INET, &ifa_addr_in->sin_addr.s_addr, addr4buf, sizeof(addr4buf));
+    std::cout << addr4buf << "\n";
+
+    if(std::string(addr4buf) != "127.0.0.1")
+        return 1;
+
     return 0;
 }
