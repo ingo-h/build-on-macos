@@ -16,7 +16,7 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Configure
-        run: cmake -S . -B build -D CMAKE_C_COMPILER=$(brew --prefix llvm)/bin/clang -D CMAKE_CXX_COMPILER=$(brew --prefix llvm)/bin/clang
+        run: cmake -S . -B build -D CMAKE_C_COMPILER=$(brew --prefix llvm)/bin/clang -D CMAKE_CXX_COMPILER=$(brew --prefix llvm)/bin/clang++
 
       - name: Build
         run: cmake --build build
